@@ -33,5 +33,4 @@ const decode = (ciphertext, key, alphabet = DEFAULT_ALPHABET) => {
   }, '')
 }
 
-// console.log(encode('i fucking love memes', 'haha content'))
-console.log(decode('+E.:G."$#I@A^4L.I-\\(', 'haha content'))
+module.exports = { encode, decode }
