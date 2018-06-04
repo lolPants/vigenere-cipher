@@ -18,4 +18,4 @@ const generateRow = (alphabet = DEFAULT_ALPHABET, offset = 0) => Array.from(new 
  */
 const generateSquare = (alphabet = DEFAULT_ALPHABET) => Array.from(new Array(alphabet.length)).map((x, i) => generateRow(alphabet, i))
 
-module.exports = { DEFAULT_ALPHABET, generateSquare }
+module.exports = { DEFAULT_ALPHABET, generateSquare, generateRow }
