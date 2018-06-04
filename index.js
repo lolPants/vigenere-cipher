@@ -12,7 +12,12 @@ const generateMap = (alphabet = DEFAULT_ALPHABET) => Array.from(new Array(alphab
  */
 const encode = (plaintext, key, alphabet = DEFAULT_ALPHABET) => {
   let map = generateMap(alphabet)
-  return plaintext.split('').reduce((a, c, i) => `${a}${map[alphabet.indexOf(key[i % key.length])][alphabet.indexOf(c)]}`, '')
+  return plaintext.split('').reduce((accumulator, letter, i) => {
+    let plainIndex = alphabet.indexOf(letter)
+    let keyIndex = alphabet.indexOf(key[i % key.length])
+
+    return `${accumulator}${map[keyIndex][plainIndex]}`
+  }, '')
 }
 
 /**
@@ -25,9 +30,9 @@ const encode = (plaintext, key, alphabet = DEFAULT_ALPHABET) => {
 const decode = (ciphertext, key, alphabet = DEFAULT_ALPHABET) => {
   let map = generateMap(alphabet)
 
-  return ciphertext.split('').reduce((a, c, i) => {
+  return ciphertext.split('').reduce((accumulator, letter, i) => {
     let row = map[alphabet.indexOf(key[i % key.length])]
-    return `${a}${alphabet[row.indexOf(c)]}`
+    return `${accumulator}${alphabet[row.indexOf(letter)]}`
   }, '')
 }
 
