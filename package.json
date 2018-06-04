@@ -1,10 +1,13 @@
 {
-  "name": "vigenere-cipher",
+  "name": "@lolpants/vigenere-cipher",
   "version": "0.1.0",
   "description": "Pure JS implementation of a Vigenère Cipher",
   "main": "src/index.js",
   "scripts": {
-    "test": "eslint --color src/"
+    "lint": "eslint --color src/",
+    "mocha": "nyc --reporter=html --reporter=text mocha",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "test": "npm run lint && npm run mocha"
   },
   "repository": {
     "type": "git",
@@ -25,6 +28,10 @@
   },
   "homepage": "https://github.com/lolPants/vigenere-cipher#readme",
   "devDependencies": {
-    "eslint": "^4.19.1"
+    "chai": "^4.1.2",
+    "coveralls": "^3.0.1",
+    "eslint": "^4.19.1",
+    "mocha": "^5.2.0",
+    "nyc": "^12.0.2"
   }
 }
