@@ -1,7 +1,4 @@
-const { DEFAULT_ALPHABET } = require('./constants')
-
-const generateSet = (alphabet = DEFAULT_ALPHABET, offset = 0) => Array.from(new Array(alphabet.length)).map((x, i) => alphabet[(i + offset) % alphabet.length])
-const generateMap = (alphabet = DEFAULT_ALPHABET) => Array.from(new Array(alphabet.length)).map((x, i) => generateSet(alphabet, i))
+const { DEFAULT_ALPHABET, generateSquare } = require('./constants')
 
 /**
  * Encode using a Vigenère cipher
@@ -11,7 +8,7 @@ const generateMap = (alphabet = DEFAULT_ALPHABET) => Array.from(new Array(alphab
  * @returns {string}
  */
 const encode = (plaintext, key, alphabet = DEFAULT_ALPHABET) => {
-  let map = generateMap(alphabet)
+  let map = generateSquare(alphabet)
   return plaintext.split('').reduce((accumulator, letter, i) => {
     let plainIndex = alphabet.indexOf(letter)
     let keyIndex = alphabet.indexOf(key[i % key.length])
@@ -28,7 +25,7 @@ const encode = (plaintext, key, alphabet = DEFAULT_ALPHABET) => {
  * @returns {string}
  */
 const decode = (ciphertext, key, alphabet = DEFAULT_ALPHABET) => {
-  let map = generateMap(alphabet)
+  let map = generateSquare(alphabet)
 
   return ciphertext.split('').reduce((accumulator, letter, i) => {
     let row = map[alphabet.indexOf(key[i % key.length])]
