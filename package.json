@@ -1,0 +1,30 @@
+{
+  "name": "vigenere-cipher",
+  "version": "0.1.0",
+  "description": "Pure JS implementation of a Vigenère Cipher",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "eslint --color src/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lolPants/vigenere-cipher.git"
+  },
+  "keywords": [
+    "vigenere",
+    "cipher",
+    "pure",
+    "encode",
+    "decode",
+    "crypto"
+  ],
+  "author": "Jack Baron <jackmbaron@gmail.com> (https://www.jackbaron.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lolPants/vigenere-cipher/issues"
+  },
+  "homepage": "https://github.com/lolPants/vigenere-cipher#readme",
+  "devDependencies": {
+    "eslint": "^4.19.1"
+  }
+}
