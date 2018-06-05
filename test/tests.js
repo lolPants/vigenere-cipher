@@ -1,3 +1,4 @@
+/* eslint max-nested-callbacks: 0 */
 // Test Suites
 const { describe, it } = require('mocha')
 const { expect } = require('chai')
@@ -13,6 +14,16 @@ describe('encode()', () => {
   describe('data types', () => {
     it('should return a string', () => {
       expect(encode('test', 'haha')).to.be.a('string')
+    })
+
+    describe(`input: 'plaintext'`, () => {
+      it('should accept a string', () => {
+        expect(() => { encode('test', 'haha') }).to.not.throw()
+      })
+
+      it('should not accept an array', () => {
+        expect(() => { encode(['memes', 4, {}], 'haha') }).to.throw()
+      })
     })
   })
 })
