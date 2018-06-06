@@ -78,7 +78,61 @@ describe('decode()', () => {
     expect(decode).to.be.a('function')
   })
 
-  describe('data types', () => {
+  describe(`input: 'plaintext'`, () => {
+    it('should accept a string', () => {
+      expect(() => { decode('test', 'haha') }).to.not.throw()
+    })
+
+    it('should not accept a number', () => {
+      expect(() => { decode(5, 'haha') }).to.throw(invalid.ciphertext)
+    })
+
+    it('should not accept an array', () => {
+      expect(() => { decode(['memes', 4, {}], 'haha') }).to.throw(invalid.ciphertext)
+    })
+
+    it('should not accept an object', () => {
+      expect(() => { decode({ haha: 'content' }, 'haha') }).to.throw(invalid.ciphertext)
+    })
+  })
+
+  describe(`input: 'key'`, () => {
+    it('should accept a string', () => {
+      expect(() => { decode('test', 'haha') }).to.not.throw()
+    })
+
+    it('should not accept a number', () => {
+      expect(() => { decode('memes', 5) }).to.throw(invalid.key)
+    })
+
+    it('should not accept an array', () => {
+      expect(() => { decode('memes', ['memes', 4, {}]) }).to.throw(invalid.key)
+    })
+
+    it('should not accept an object', () => {
+      expect(() => { decode('memes', { haha: 'content' }) }).to.throw(invalid.key)
+    })
+  })
+
+  describe(`input: 'alphabet'`, () => {
+    it('should accept a string', () => {
+      expect(() => { decode('abcd', 'abcdef', 'abcdefgh') }).to.not.throw()
+    })
+
+    it('should accept an array', () => {
+      expect(() => { decode('abcd', 'abcdef', ['a', 'b', 'c', 'd', 'e', 'f', 'g']) }).to.not.throw()
+    })
+
+    it('should not accept a number', () => {
+      expect(() => { decode('memes', 'haha', 5) }).to.throw(invalid.alphabet)
+    })
+
+    it('should not accept an object', () => {
+      expect(() => { decode('memes', 'haha', { haha: 'content' }) }).to.throw(invalid.alphabet)
+    })
+  })
+
+  describe('output', () => {
     it('should return a string', () => {
       expect(decode('test', 'haha')).to.be.a('string')
     })

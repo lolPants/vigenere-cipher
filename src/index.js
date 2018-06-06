@@ -33,7 +33,7 @@ const encode = (plaintext, key, alphabet = DEFAULT_ALPHABET) => {
 const decode = (ciphertext, key, alphabet = DEFAULT_ALPHABET) => {
   if (typeof ciphertext !== 'string') throw invalid.inv
   if (typeof key !== 'string') throw invalid.key
-  if (typeof alphabet !== 'string' || Array.isArray(alphabet)) throw invalid.alphabet
+  if (typeof alphabet !== 'string' && !Array.isArray(alphabet)) throw invalid.alphabet
 
   let map = generateSquare(alphabet)
   return ciphertext.split('').reduce((accumulator, letter, i) => {
