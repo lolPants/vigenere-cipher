@@ -48,6 +48,24 @@ describe('encode()', () => {
     })
   })
 
+  describe(`input: 'alphabet'`, () => {
+    it('should accept a string', () => {
+      expect(() => { encode('abcd', 'abcdef', 'abcdefgh') }).to.not.throw()
+    })
+
+    it('should accept an array', () => {
+      expect(() => { encode('abcd', 'abcdef', ['a', 'b', 'c', 'd', 'e', 'f', 'g']) }).to.not.throw()
+    })
+
+    it('should not accept a number', () => {
+      expect(() => { encode('memes', 'haha', 5) }).to.throw(invalid.alphabet)
+    })
+
+    it('should not accept an object', () => {
+      expect(() => { encode('memes', 'haha', { haha: 'content' }) }).to.throw(invalid.alphabet)
+    })
+  })
+
   describe('output', () => {
     it('should return a string', () => {
       expect(encode('test', 'haha')).to.be.a('string')
