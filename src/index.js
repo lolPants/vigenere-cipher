@@ -1,4 +1,5 @@
 const { DEFAULT_ALPHABET, generateSquare } = require('./constants')
+const { invalid } = require('./errors')
 
 /**
  * Encode using a Vigenère cipher
@@ -8,6 +9,10 @@ const { DEFAULT_ALPHABET, generateSquare } = require('./constants')
  * @returns {string}
  */
 const encode = (plaintext, key, alphabet = DEFAULT_ALPHABET) => {
+  if (typeof plaintext !== 'string') throw invalid.plaintext
+  if (typeof key !== 'string') throw invalid.key
+  if (typeof alphabet !== 'string' || Array.isArray(alphabet)) throw invalid.alphabet
+
   let map = generateSquare(alphabet)
   return plaintext.split('').reduce((accumulator, letter, i) => {
     let plainIndex = alphabet.indexOf(letter)
@@ -25,8 +30,11 @@ const encode = (plaintext, key, alphabet = DEFAULT_ALPHABET) => {
  * @returns {string}
  */
 const decode = (ciphertext, key, alphabet = DEFAULT_ALPHABET) => {
-  let map = generateSquare(alphabet)
+  if (typeof ciphertext !== 'string') throw invalid.inv
+  if (typeof key !== 'string') throw invalid.key
+  if (typeof alphabet !== 'string' || Array.isArray(alphabet)) throw invalid.alphabet
 
+  let map = generateSquare(alphabet)
   return ciphertext.split('').reduce((accumulator, letter, i) => {
     let row = map[alphabet.indexOf(key[i % key.length])]
     return `${accumulator}${alphabet[row.indexOf(letter)]}`

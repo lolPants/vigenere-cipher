@@ -5,25 +5,52 @@ const { expect } = require('chai')
 
 const { encode, decode } = require('../src/index.js')
 const { generateRow, generateSquare } = require('../src/constants')
+const { invalid } = require('../src/errors')
 
 describe('encode()', () => {
   it('should be a function', () => {
     expect(encode).to.be.a('function')
   })
 
-  describe('data types', () => {
-    it('should return a string', () => {
-      expect(encode('test', 'haha')).to.be.a('string')
+  describe(`input: 'plaintext'`, () => {
+    it('should accept a string', () => {
+      expect(() => { encode('test', 'haha') }).to.not.throw()
     })
 
-    describe(`input: 'plaintext'`, () => {
-      it('should accept a string', () => {
-        expect(() => { encode('test', 'haha') }).to.not.throw()
-      })
+    it('should not accept a number', () => {
+      expect(() => { encode(5, 'haha') }).to.throw(invalid.plaintext)
+    })
 
-      it('should not accept an array', () => {
-        expect(() => { encode(['memes', 4, {}], 'haha') }).to.throw()
-      })
+    it('should not accept an array', () => {
+      expect(() => { encode(['memes', 4, {}], 'haha') }).to.throw(invalid.plaintext)
+    })
+
+    it('should not accept an object', () => {
+      expect(() => { encode({ haha: 'content' }, 'haha') }).to.throw(invalid.plaintext)
+    })
+  })
+
+  describe(`input: 'key'`, () => {
+    it('should accept a string', () => {
+      expect(() => { encode('test', 'haha') }).to.not.throw()
+    })
+
+    it('should not accept a number', () => {
+      expect(() => { encode('memes', 5) }).to.throw(invalid.key)
+    })
+
+    it('should not accept an array', () => {
+      expect(() => { encode('memes', ['memes', 4, {}]) }).to.throw(invalid.key)
+    })
+
+    it('should not accept an object', () => {
+      expect(() => { encode('memes', { haha: 'content' }) }).to.throw(invalid.key)
+    })
+  })
+
+  describe('output', () => {
+    it('should return a string', () => {
+      expect(encode('test', 'haha')).to.be.a('string')
     })
   })
 })
