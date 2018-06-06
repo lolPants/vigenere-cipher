@@ -9,9 +9,10 @@ const { invalid } = require('./errors')
  * @returns {string}
  */
 const encode = (plaintext, key, alphabet = DEFAULT_ALPHABET) => {
+  console.log(typeof alphabet !== 'string', Array.isArray(alphabet), typeof alphabet !== 'string' || Array.isArray(alphabet))
   if (typeof plaintext !== 'string') throw invalid.plaintext
   if (typeof key !== 'string') throw invalid.key
-  if (typeof alphabet !== 'string' || Array.isArray(alphabet)) throw invalid.alphabet
+  if (typeof alphabet !== 'string' && !Array.isArray(alphabet)) throw invalid.alphabet
 
   let map = generateSquare(alphabet)
   return plaintext.split('').reduce((accumulator, letter, i) => {
