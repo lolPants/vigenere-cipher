@@ -78,7 +78,7 @@ describe('decode()', () => {
     expect(decode).to.be.a('function')
   })
 
-  describe(`input: 'plaintext'`, () => {
+  describe(`input: 'ciphertext'`, () => {
     it('should accept a string', () => {
       expect(() => { decode('test', 'haha') }).to.not.throw()
     })
