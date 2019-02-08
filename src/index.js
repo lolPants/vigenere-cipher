@@ -13,10 +13,10 @@ const encode = (plaintext, key, alphabet = DEFAULT_ALPHABET) => {
   if (typeof key !== 'string') throw invalid.key
   if (typeof alphabet !== 'string' && !Array.isArray(alphabet)) throw invalid.alphabet
 
-  let map = generateSquare(alphabet)
+  const map = generateSquare(alphabet)
   return plaintext.split('').reduce((accumulator, letter, i) => {
-    let plainIndex = alphabet.indexOf(letter)
-    let keyIndex = alphabet.indexOf(key[i % key.length])
+    const plainIndex = alphabet.indexOf(letter)
+    const keyIndex = alphabet.indexOf(key[i % key.length])
 
     return `${accumulator}${map[keyIndex][plainIndex]}`
   }, '')
@@ -34,9 +34,9 @@ const decode = (ciphertext, key, alphabet = DEFAULT_ALPHABET) => {
   if (typeof key !== 'string') throw invalid.key
   if (typeof alphabet !== 'string' && !Array.isArray(alphabet)) throw invalid.alphabet
 
-  let map = generateSquare(alphabet)
+  const map = generateSquare(alphabet)
   return ciphertext.split('').reduce((accumulator, letter, i) => {
-    let row = map[alphabet.indexOf(key[i % key.length])]
+    const row = map[alphabet.indexOf(key[i % key.length])]
     return `${accumulator}${alphabet[row.indexOf(letter)]}`
   }, '')
 }
